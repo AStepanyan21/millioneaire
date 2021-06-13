@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
+import {AnswerType} from "../core/settings/types";
 
-
-type AnswerType = {
-    correct_answer: boolean
-    answer: string
-}
 
 type AnswerItemType = {
     answer: AnswerType
+    trueClick: any
+    click: any
 }
 
 function AnswerItem(props: AnswerItemType) {
@@ -21,7 +19,10 @@ function AnswerItem(props: AnswerItemType) {
                     return classes !== "btn-outline-success"
                 })
                 setBtnColor(classes)
+                props.trueClick()
+                props.click()
             }, 2000)
+
         } else {
             setBtnColor(["btn-outline-danger", ...btnColor])
             setTimeout(() => {
@@ -29,7 +30,9 @@ function AnswerItem(props: AnswerItemType) {
                     return classes !== "btn-outline-danger"
                 })
                 setBtnColor(classes)
+                props.click()
             }, 2000)
+
         }
 
     }

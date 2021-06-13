@@ -1,37 +1,39 @@
 import AppConstants from "../settings/constants";
+import {quizType} from "../settings/types";
+
 
 class NetworkService {
-    makeAPIGetRequest = (url: string) => {
+    makeAPIGetRequest: (url: string) => Promise<Array<quizType>> = (url: string) => {
         return this.makeAPIRequest(
-            url,
+            AppConstants.network.BASE_URL + url,
             this._getOptions(AppConstants.network_request_methods.GET)
         );
     };
 
     makeAPIPostRequest = <Type>(url: string, data: Type) => {
         return this.makeAPIRequest(
-            url,
+            AppConstants.network.BASE_URL + url,
             this._getPostOptions(AppConstants.network_request_methods.POST, data)
         );
     };
 
     makeAPIDeleteRequest = (url: string) => {
         return this.makeAPIRequest(
-            url,
+            AppConstants.network.BASE_URL + url,
             this._getOptions(AppConstants.network_request_methods.DELETE)
         );
     };
 
     makeAPIPatchRequest = <Type>(url: string, data: Type) => {
         return this.makeAPIRequest(
-            url,
+            AppConstants.network.BASE_URL + url,
             this._getPostOptions(AppConstants.network_request_methods.PATCH, data)
         );
     };
 
     makeAPIPutRequest = <Type>(url: string, data: Type) => {
         return this.makeAPIRequest(
-            url,
+           AppConstants.network.BASE_URL + url,
             this._getPostOptions(AppConstants.network_request_methods.PUT, data)
         );
     };
@@ -67,4 +69,4 @@ class NetworkService {
     };
 }
 
-export default NetworkService;
+export default new NetworkService();

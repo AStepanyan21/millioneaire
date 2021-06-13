@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from "mobx-react";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import quizzesStore from './core/store'
 
 ReactDOM.render(
     <BrowserRouter>
         <React.StrictMode>
-            <App/>
+            <Provider {...quizzesStore}>
+                <App/>
+            </Provider>
         </React.StrictMode>
     </BrowserRouter>,
 

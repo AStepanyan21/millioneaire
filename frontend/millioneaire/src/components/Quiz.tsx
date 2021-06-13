@@ -1,36 +1,50 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ActiveQuestion from "./ActiveQuestion";
+import {inject, observer} from "mobx-react";
+import FinisPage from "./FinisPage";
+
+@inject("quizzesStore")
+@observer
+class Quiz extends React.Component<any, typeof Quiz> {
+    constructor(props: any) {
+        super(props);
+    }
 
 
-function Quiz() {
-
-    const [quizzes, setQuizzes] = useState([])
-    const [loadingAnswer, setLoadingAnswer] = useState(true)
-    useEffect(() => {
-        setLoadingAnswer(true)
-        //@ts-ignore
-        fetch('http://127.0.0.1:8000/api/v1/quizzes/2')
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setQuizzes(data)
-                setLoadingAnswer(false)
-                console.log(data);
-            });
-    }, [])
-    return (
-        <div className="card text-center">
+    render() {
+        const {
+            isFinished, loading,
+            game_quizzes, active_quiz,
+            trueClick, click,
+            game_points,quizzes
+        } = this.props.quizzesStore
+        console.log(game_quizzes)
+        return (
+            <div className="card text-center">
             <div className="card-header">
                 Questions
             </div>
-            <ActiveQuestion
-                loading={loadingAnswer}
-                quiz = {quizzes}
-            />
-        </div>
+            {
 
-    );
+                !isFinished
+                    ?
+                        < ActiveQuestion
+                            quiz={game_quizzes[active_quiz]}
+                            trueClick={trueClick}
+                            click={click}
+                            game_points={game_points}
+                        />
+
+                    :
+                    <FinisPage
+                        game_points={this.props.quizzesStore.game_points}
+                    />
+
+            }
+        </div>)
+    }
+
 }
+
 
 export default Quiz;
