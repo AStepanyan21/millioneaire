@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import AnswerItem from "./AnswersItem";
+import ActiveQuestion from "./ActiveQuestion";
 
 
 function Quiz() {
 
     const [quizzes, setQuizzes] = useState([])
+    const [loadingAnswer, setLoadingAnswer] = useState(true)
     useEffect(() => {
+        setLoadingAnswer(true)
         //@ts-ignore
         fetch('http://127.0.0.1:8000/api/v1/quizzes/2')
             .then((response) => {
@@ -13,26 +15,19 @@ function Quiz() {
             })
             .then((data) => {
                 setQuizzes(data)
+                setLoadingAnswer(false)
                 console.log(data);
             });
-    })
+    }, [])
     return (
         <div className="card text-center">
             <div className="card-header">
                 Questions
             </div>
-            <div className="card-body">
-                <h5 className="card-title">Special title treatment</h5>
-                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                {/*{   //@ts-ignore*/}
-                {/*    quizzes.answers.map((answer, index) => {*/}
-                {/*    return (*/}
-                {/*        <AnswerItem*/}
-                {/*            answer={answer}*/}
-                {/*            key={index}*/}
-                {/*        />)*/}
-                {/*})}*/}
-            </div>
+            <ActiveQuestion
+                loading={loadingAnswer}
+                quiz = {quizzes}
+            />
         </div>
 
     );
