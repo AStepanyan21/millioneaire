@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 type FinishPageType = {
     game_points: number
 }
-const FinisPage = (props: FinishPageType) => {
+const FinishPage = (props: FinishPageType) => {
     return (
         <div className="container">
             <div className="col justify-content-evenly">
@@ -28,4 +28,4 @@ const FinisPage = (props: FinishPageType) => {
     )
 }
 
-export default FinisPage
+export default FinishPage
