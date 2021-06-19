@@ -14,7 +14,7 @@ matplotlib-inline==0.1.2
 parso==0.8.2
 pickleshare==0.7.5
 prompt-toolkit==3.0.19
-pydantic==1.7.3
+pydantic==1.7.4
 pydantic-django==0.0.7
 Pygments==2.9.0
 pytz==2021.1
